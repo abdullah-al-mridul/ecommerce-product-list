@@ -144,7 +144,7 @@ const App = () => {
             </div>
           </button>
         </div>
-        {true && (
+        {isLoading && (
           <p className=" text-center text-[20px] text-[#6875F5]">Loading...</p>
         )}
         <div className=" grid grid-cols-4 max-laptop-sm:grid-cols-3 max-tablet:grid-cols-2 max-mobile:grid-cols-1 gap-[20px]">
