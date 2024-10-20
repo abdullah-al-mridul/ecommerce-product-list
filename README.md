@@ -9,8 +9,8 @@ To set up the application locally, follow these steps:
 1. **Clone the repository**:
 
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/abdullah-al-mridul/ecommerce-product-list.git
+   cd ecommerce-product-list
    ```
 
 2. **Install dependencies**: Make sure you have [Node.js](https://nodejs.org/) installed. Then run:
