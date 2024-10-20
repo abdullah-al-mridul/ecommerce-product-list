@@ -1,8 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./components/ProductCard";
 import { useGetAllProductsQuery } from "./features/getProductsApi";
 import { RootState } from "./store";
-import { selectTotalPrice, selectTotalQuantity } from "./features/cartSlice";
+import {
+  clearCart,
+  selectTotalPrice,
+  selectTotalQuantity,
+} from "./features/cartSlice";
 import CartCard from "./components/CartCard";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,6 +25,7 @@ const App = () => {
     };
   }
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
   const { data, isLoading, isError } = useGetAllProductsQuery(void 0);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalQuantity = useSelector((state: RootState) =>
@@ -93,6 +98,16 @@ const App = () => {
                   />
                 ))
               )}
+              <div className=" flex justify-center">
+                {cartItems.length > 0 && (
+                  <button
+                    onClick={() => dispatch(clearCart())}
+                    className="   bg-[#818CF8] mt-[10px] text-[15px] py-[5px] px-[15px] transition-all hover:bg-[#6366F1] rounded-[5px]"
+                  >
+                    Clear Cart
+                  </button>
+                )}
+              </div>
             </motion.div>
           </div>
         )}
