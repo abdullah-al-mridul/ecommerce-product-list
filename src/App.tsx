@@ -54,7 +54,6 @@ const App = () => {
   }, []);
   return (
     <div className=" bg-[#111827] min-h-screen">
-      {isLoading && <p>Loading...</p>}
       {isError && <p>Error fetching products.</p>}
       <AnimatePresence>
         {isCartOpen && (
@@ -95,6 +94,7 @@ const App = () => {
           </div>
         )}
       </AnimatePresence>
+
       <div className=" max-w-[1000px] mx-auto px-[20px] pb-[80px]">
         <div className=" flex justify-between items-center border-b border-[#374151] py-[30px] mb-[30px]">
           <div>
@@ -144,6 +144,9 @@ const App = () => {
             </div>
           </button>
         </div>
+        {true && (
+          <p className=" text-center text-[20px] text-[#6875F5]">Loading...</p>
+        )}
         <div className=" grid grid-cols-4 max-laptop-sm:grid-cols-3 max-tablet:grid-cols-2 max-mobile:grid-cols-1 gap-[20px]">
           {!isLoading &&
             data?.map((product: Product) => (
