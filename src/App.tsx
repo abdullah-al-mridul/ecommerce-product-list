@@ -20,13 +20,13 @@ const App = () => {
       count: number;
     };
   }
+  const [search, setSearch] = useState("");
   const { data, isLoading, isError } = useGetAllProductsQuery(void 0);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalQuantity = useSelector((state: RootState) =>
     selectTotalQuantity(state)
   );
   const totalPrice = useSelector((state: RootState) => selectTotalPrice(state));
-  console.log(cartItems, totalPrice, totalQuantity);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartRef = useRef<HTMLDivElement | null>(null);
 
@@ -52,6 +52,9 @@ const App = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  const filteredProducts = data?.filter((singleProduct: Product) =>
+    singleProduct.title.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className=" bg-[#111827] min-h-screen">
       {isError && <p>Error fetching products.</p>}
@@ -147,9 +150,18 @@ const App = () => {
         {isLoading && (
           <p className=" text-center text-[20px] text-[#6875F5]">Loading...</p>
         )}
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className=" mb-[20px] w-full bg-transparent border-2 placeholder:text-[#374151] border-[#374151] rounded-[7px] outline-none text-[18px] px-[30px] font-[500] py-[10px] text-[#6C63FF]"
+          placeholder="Search..."
+          type="text"
+          name="search"
+          id="search"
+        />
         <div className=" grid grid-cols-4 max-laptop-sm:grid-cols-3 max-tablet:grid-cols-2 max-mobile:grid-cols-1 gap-[20px]">
           {!isLoading &&
-            data?.map((product: Product) => (
+            filteredProducts?.map((product: Product) => (
               <ProductCard
                 key={product.id}
                 title={product.title}
